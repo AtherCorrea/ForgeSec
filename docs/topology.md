@@ -1,0 +1,3 @@
+# Network Topology – Ather SOC Homelab
+
+The lab uses a dual-network architecture in VMware...

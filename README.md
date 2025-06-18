@@ -1,0 +1,3 @@
+# Ather SOC Homelab
+
+This project provides a realistic Security Operations Center (SOC) homelab...
