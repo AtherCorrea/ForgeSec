@@ -1,0 +1,101 @@
+# 🧠 IDS/IPS Mastery Path
+
+This document outlines a structured learning journey to deeply understand Intrusion Detection and Prevention Systems (IDS/IPS), using hands-on experiments, log analysis, and real-world tools like Suricata and pfSense.
+
+> The goal is not simply to *use* IDS/IPS tools — but to fully understand **how** they work, **why** they matter, and **what happens internally** when malicious traffic is detected or blocked. This is part of a broader initiative to master cybersecurity through real lab work.
+
+---
+
+## 📚 Learning Stages
+
+### 1. 🔍 Fundamentals (Theory)
+
+Understand the foundational concepts:
+
+- What are IDS and IPS?
+- IDS vs IPS vs Firewalls – core differences
+- Inline vs Passive deployment
+- Detection techniques: Signature-based vs Anomaly-based
+
+📄 Covered in: [`learning.md`](../../docs/learning.md)
+
+---
+
+### 2. 🧠 Suricata Deep Dive
+
+Get familiar with how Suricata operates:
+
+- Internal architecture: packet flow, threading, inspection engines
+- Detection pipeline and multi-threading model
+- Key log files (`eve.json`, `fast.log`, `stats.log`), what they track
+
+📄 Documentation: [`ids/suricata/docs`](../../ids/suricata/docs)
+
+---
+
+### 3. 🧾 Rule Behavior & Signature Analysis
+
+Explore how rules actually work:
+
+- Rule structure: `msg`, `sid`, `classtype`, `priority`, etc.
+- Rule matching engine and order of evaluation
+- Custom rule creation and testing
+- How Suricata prioritizes alerts
+- Identifying and tuning false positives
+
+📄 Coming soon: `rules_analysis.md` under `ids/suricata/docs`
+
+---
+
+### 4. 🧪 Detection Testing in Lab
+
+Simulate real attacks and verify detection:
+
+- Attack simulations (Nmap scans, Metasploit payloads, brute force, etc.)
+- Triggering IDS alerts with known test signatures
+- Analyzing results in Suricata logs
+- Cleaning logs between tests for reproducibility
+
+📄 First test case: [`test-01_nmap-scan`](../../ids/suricata/tests/test-01_nmap-scan)
+
+---
+
+### 5. 📊 SIEM Integration (Post IDS)
+
+Expand visibility by forwarding Suricata data:
+
+- Shipping Suricata logs to SIEM (Wazuh/Splunk)
+- Parsing and enrichment for correlation
+- Combining IDS with firewall and endpoint telemetry
+- Visualizing timeline, severity, and frequency
+
+📄 To be documented under: `siem/` once implementation begins
+
+---
+
+### 6. 🧬 Advanced Topics & Optimization
+
+Refine and expand your IDS/IPS knowledge:
+
+- Performance tuning and hardware optimization
+- Detection evasion techniques and countermeasures
+- Threat Intelligence integration with Suricata
+- Automated rule management (PulledPork, Oinkmaster)
+- IPS mode configuration and packet drop verification
+
+📄 Will be tracked in `ids/suricata/docs/advanced.md`
+
+---
+
+## 🗂️ Linked Documentation & Resources
+
+| Topic                             | Location                                                          |
+|-----------------------------------|-------------------------------------------------------------------|
+| Suricata Setup & Configuration    | [`ids/suricata/docs`](../../ids/suricata/docs)                    |
+| First Test: Nmap Scan             | [`test-01_nmap-scan`](../../ids/suricata/tests/test-01_nmap-scan) |
+| Observations & Troubleshooting    | [`docs/learning.md`](../../docs/learning.md)                      |
+| Project Roadmap (Global View)     | [`docs/roadmap.md`](../../docs/roadmap.md)                        |
+
+---
+
+> 🧠 This path is both a technical roadmap and a learning journey designed to turn lab exercises into long-term mastery. As tests evolve and understanding grows, this document will expand to reflect that.
