@@ -1,94 +1,109 @@
 # 🛡️ Ather SOC Homelab
 
-Ather SOC Homelab is a fully documented, realistic simulation environment designed for in-depth learning of cybersecurity operations. It was built from scratch to explore how modern SOC components operate in real-world conditions — including malicious traffic detection, network defense, and event correlation.
+Ather SOC Homelab is a fully documented, realistic simulation environment designed to deeply understand how modern Security Operations Centers (SOCs) work. This lab includes virtualized firewalls, IDS/IPS, offensive testing, and log analysis everything built from scratch with real tools, real traffic, and real documentation.
 
-> This is not just a demo lab — it's a real, evolving project focused on **understanding cybersecurity with depth**. Every tool, test, and problem is documented with the mindset of a professional analyst and engineer. This repository is part of my public portfolio to show both **technical capability** and **professional documentation standards**.
+> This isn’t just a demo lab it's a **living, technical portfolio** focused on depth, clarity, and professional-grade research. Each component is analyzed and documented as if in a real-world enterprise SOC.
 
 ---
 
-## 🎯 Objectives
+## 🌟 Objectives
 
-- Build a realistic, modular SOC homelab using virtualized infrastructure
-- Learn cybersecurity operations with practical, real-world use cases
-- Understand network behavior, system monitoring, log analysis, and threat detection
-- Create a custom offensive testing tool — [IGNITE](../ignite)
-- Showcase high-quality documentation and structured testing
+- Build a modular, enterprise-like SOC homelab using virtual machines and segmented networks
+- Learn cybersecurity operations through hands-on simulation and attack emulation
+- Understand how logs, packets, and events interact across firewall, IDS/IPS, and SIEM layers
+- Create a custom offensive testing tool [`IGNITE`](./ignite)
+- Showcase detailed, technical documentation as part of a public portfolio
 
 ---
 
 ## 🧱 Lab Overview
 
-The lab simulates an enterprise-like network using VMware Workstation Pro 17. It uses isolated NAT and LAN segments to ensure realistic traffic flow and separation of responsibilities.
+The lab emulates a corporate network using VMware Workstation Pro 17, with distinct NAT and LAN segments for realism. Components include:
 
-> For full architecture and network details, refer to [`lab/topology.md`](./lab/topology.md).
+- Windows Server with Active Directory
+- pfSense firewall
+- Suricata IDS/IPS
+- Kali Linux (offensive)
+- Metasploitable2 (vulnerable target)
+- Debian-based syslog/SIEM servers
+
+> 📄 For full architecture details: [`lab/topology.md`](./lab/topology.md)
 
 ---
 
-## 🧪 Tests and Analysis
+## 🧪 Tests and Detection Analysis
 
-Each test case in this repository is structured to provide:
+All security tests follow a repeatable structure with:
 
-- The attack vector used (with exact commands)
-- The network context and target
-- The detection output (from IDS, firewall, or SIEM)
-- Screenshots, raw logs, and observations
+- Attack method and exact steps used
+- Traffic context and test scope
+- Alert/log output (e.g., Suricata or pfSense)
+- Screenshots and raw log files
 
-📂 Example structure:
+📂 Example:
 
 ```
-/ids/suricata/tests/test-01_nmap-scan/
+lab/IPS_IDS/suricata/tests/01_suricata_test_nmap-scan/
 ├── description.md
 ├── eve.json
 ├── screenshot.png
 └── rules-activated.txt
 ```
 
-All logs are versioned and cleaned before each test to ensure traceability and reproducibility.
+All logs are cleared before testing to ensure traceability and reproducibility.
 
 ---
 
-## 🧩 Tools & Components
+## 🧹 Structure & Components
 
-The environment is built using multiple virtual machines, each fulfilling a realistic role in a corporate network.
+The repository is divided into logical areas of a SOC environment:
 
-> Configuration details are provided per component in their respective folders, such as [`/firewall/pfsense`](./firewall/pfsense) and [`/ids/suricata`](./ids/suricata).
+- [`lab/vms`](./lab/vms) – Setup notes and roles of each virtual machine
+- [`lab/firewall`](./lab/firewall) – Firewall deployment and configuration
+- [`lab/IPS_IDS`](./lab/IPS_IDS) – IDS/IPS systems, detection rules, and testing
+- [`ignite`](./ignite) – Custom offensive tool designed for traffic simulation
+- [`docs`](./docs) – Learning paths, theory, research, and structured analysis
 
----
-
-## 🧠 Why This Project?
-
-The mission behind this project goes beyond simulating alerts — it's about building a deep understanding of cybersecurity as a discipline.
-
-From traffic inspection and protocol behavior, to rule-based detection and event correlation, this lab is a foundation to study how everything connects inside a real SOC. This includes:
-
-- Core concepts of detection, logging, and alerting
-- Traffic behavior across firewall and IDS/IPS layers
-- How tools integrate and correlate data in a SIEM
-- Troubleshooting real-world system and network challenges
-
-> You’ll find examples of these challenges — like ICMP being blocked by a Windows firewall or missing rule activations — fully documented in their appropriate sections (e.g., [`learning.md`](./docs/learning.md)).
+> Each section has its own `README.md` for navigation and context.
 
 ---
 
-## 📚 Documentation
+## 📚 Learning & Cybersecurity Insights
 
-You’ll find detailed notes and configs structured by area:
+This project focuses on **understanding cybersecurity as a discipline**, not just on using tools. Topics include:
 
-- [`docs/roadmap.md`](./docs/roadmap.md) – project plan and progress
-- [`docs/learning.md`](./docs/learning.md) – problems faced, lessons learned
-- [`lab/topology.md`](./lab/topology.md) – network structure and diagram
-- [`firewall/pfsense/config`](./firewall/pfsense/config) – pfSense configuration backups
-- [`ids/suricata/tests`](./ids/suricata/tests) – detection tests and results
+- Traffic analysis and detection logic in IDS/IPS
+- Firewall behavior, filtering, and state tracking
+- Rule tuning, signature logic, and alert triage
+- SIEM data correlation from multiple sources
+- Integration of AI for log parsing and detection support
 
-> 📚 **This is real documentation from a real lab**, not placeholder notes. The goal is to impress not with flashy visuals, but with structured, transparent, and replicable research.
+🧠 Key learning modules:
+
+- [`docs/learning/IPS_IDS/1.0%20-%20Roadmap_IDS-IPS%20Mastery%20Path.md`](./docs/learning/IPS_IDS/1.0%20-%20Roadmap_IDS-IPS%20Mastery%20Path.md)
+- [`docs/learning/IPS_IDS/2.0%20-%20IPS-IDS%20Fundamentals%20–%20Theoretical%20Concepts.md`](./docs/learning/IPS_IDS/2.0%20-%20IPS-IDS%20Fundamentals%20%E2%80%93%20Theoretical%20Concepts.md)
+- [`docs/learning/IPS_IDS/2.1%20-%20How%20IDS-IPS%20Engines%20Work.md`](./docs/learning/IPS_IDS/2.1%20-%20How%20IDS-IPS%20Engines%20Work.md)
+
+---
+
+## 🚧 Project Status & Future Additions
+
+This lab is under active construction and constantly evolving. Planned enhancements include:
+
+- SIEM integration with Wazuh or Splunk
+- Certificate management and secure communication
+- Advanced Suricata rule development and classification
+- Evasion detection and performance benchmarking
+- Extended attack simulation scenarios
+- AI modules for log analysis, rule generation, and alert triage
 
 ---
 
 ## 🤝 Connect
 
-If you’re a recruiter, SOC analyst, or cybersecurity enthusiast — feel free to connect and follow this journey:
+If you're a recruiter, SOC analyst, or cybersecurity enthusiast:
 
 - 🔗 [LinkedIn – Ather Correa](https://www.linkedin.com/in/athercorrea/)
 - 📬 GitHub: [github.com/AtherCorrea](https://github.com/AtherCorrea)
 
-> ⭐ If this project inspired you, feel free to star it and share.
+> ⭐ Star this repo if you found it inspiring or useful — and feel free to share!
