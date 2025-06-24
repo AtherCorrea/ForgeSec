@@ -21,28 +21,25 @@ Below is a structured breakdown of the internal components of an IDS/IPS engine,
 
 ---
 
-### 📚 Further Reading – Packet Capture & Ingestion
+### 📎 References – Packet Capture & Ingestion
 
-| Tipo               | Título / Descrição                                                                                                               | Link                                                                 |
-|--------------------|----------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
-| 📄 Docs Oficiais   | Stanford – *The Sniffer's Guide to Raw Traffic* (introdução a libpcap/structures)                                                 | [Link](https://yuba.stanford.edu/~casado/pcap/section1.html) |
-| 📄 Docs Oficiais   | IBM – *Berkeley Packet Filters* (guia de sintaxe e uso de BPF)                                                                    | [Link](https://www.ibm.com/docs/en/qsip/7.4?topic=queries-berkeley-packet-filters) |
-| 📄 Docs Técnicos   | Linux Kernel – *Packet MMAP & AF_PACKET* (zero-copy e buffer ring)                                                                | [Link](https://docs.kernel.org/networking/packet_mmap.html) |
-| 📄 Docs Técnicos   | DPDK – *AF_PACKET Poll Mode Driver* (uso de PACKET_MMAP para alta performance)                                                    | [Link](https://doc.dpdk.org/guides/nics/af_packet.html) |
-| 📚 Artigo Técnico  | Medium – *Libpcap usage in C* (exemplos com `pcap_loop()`)                                                                        | [Link](https://bettercybersec.com/snort-packet-capture-with-libpcap/) |
-| 📚 Artigo Técnico  | Medium – *Capturing millions of pkts/s with Linux only* (sem libs específicas)                                                    | [Link](https://medium.com/@pavel.odintsov/capturing-packets-in-linux-at-a-speed-of-millions-of-packets-per-second-without-using-third-party-ef782fe8959d) |
-| 📚 Artigo Técnico  | Blog – *AF_PACKET deep dive* (ring buffer, performance em C)                                                                      | [Link](https://elf11.github.io/) |
-| 🎥 Vídeo Didático  | CodiLime – *Introduction to BPF* (filtros e uso prático para captura)                                                             | [Link](https://sysdig.com/blog/the-art-of-writing-ebpf-programs-a-primer/) |
-| 🎥 Vídeo Avançado  | YouTube – *DPDK packet capture* (alta performance com DPDK e AF_PACKET)                                                           | [Link](https://www.youtube.com/watch?v=CQ3uuAeLk7I) |
-| 💡 Blog Comparativo| Elastic Discuss – *AF_PACKET vs libpcap performance difference*                                                                   | [Link](https://discuss.elastic.co/t/performance-difference-between-af-packet-libpcap/69766) |
-| 🧵 Discussões      | Suricata Forum – *AF_PACKET IPS issues* (problemas ao usar IPS com bridge)                                                        | [Link](https://forum.suricata.io/t/af-packet-ips-mode-not-copy-tcp-ack/3782) |
-| 🧵 Discussões      | Elastic Discuss – *Packet loss in af_packet mode*                                                                                  | [Link](https://discuss.elastic.co/t/packet-loss-in-af-packetbeat-mode/154186) |
-| 🧵 Discussões      | Suricata Forum – *Configuration & performance issues with AF_PACKET*                                                              | [Link](https://forum.suricata.io/t/suricata-ids-does-not-work-in-af-packet-ips-mode/3996) |
-| 💾 Paper / PDF     | NetDevConf – *AF_PACKET v4 & PACKET_ZEROCOPY* (slides técnicos avançados)                                                         | [Link](https://netdevconf.info/) |
-| 📘 Referência      | Wikipedia – *Berkeley Packet Filter (BPF)* – história e contexto técnico                                                           | [Link](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter) |
-| 📘 Referência      | Wikipedia – *eBPF introduction* – como BPF evoluiu para eBPF na captura e processamento                                            | [Link](https://en.wikipedia.org/wiki/EBPF) |
-
-> 🧠 **Dica:** estude os métodos de captura e filtragem antes de entrar em tuning e multithreading — a eficiência na camada de ingestão impacta todo o pipeline.
+| 🔍 | Related To     | Title                                                                                  | Link                                                                 |
+|----|----------------|----------------------------------------------------------------------------------------|----------------------------------------------------------------------|
+| 📄 | libpcap        | Stanford – The Sniffer's Guide to Raw Traffic                                          | [Link](https://yuba.stanford.edu/~casado/pcap/section1.html)        |
+| 📄 | BPF            | IBM – Berkeley Packet Filters                                                          | [Link](https://www.ibm.com/docs/en/qsip/7.4?topic=queries-berkeley-packet-filters) |
+| 📄 | AF_PACKET      | Linux Kernel – Packet MMAP & AF_PACKET                                                 | [Link](https://docs.kernel.org/networking/packet_mmap.html)         |
+| 📄 | DPDK           | DPDK – AF_PACKET Poll Mode Driver                                                      | [Link](https://doc.dpdk.org/guides/nics/af_packet.html)             |
+| 📚 | libpcap        | Medium – Libpcap usage in C                                                            | [Link](https://bettercybersec.com/snort-packet-capture-with-libpcap/) |
+| 📚 | Linux Kernel   | Medium – Capturing millions of packets/s with Linux only                               | [Link](https://medium.com/@pavel.odintsov/capturing-packets-in-linux-at-a-speed-of-millions-of-packets-per-second-without-using-third-party-ef782fe8959d) |
+| 📚 | AF_PACKET      | elf11 Blog – AF_PACKET deep dive                                                       | [Link](https://elf11.github.io/)                                    |
+| 🎥 | BPF            | YouTube – Introduction to BPF (CodiLime)                                               | [Link](https://www.youtube.com/watch?v=DiYVJ1sE9b0)                  |
+| 🎥 | DPDK           | YouTube – DPDK Packet Capture                                                          | [Link](https://www.youtube.com/watch?v=CQ3uuAeLk7I)                  |
+| 🧵 | AF_PACKET      | Elastic Discuss – AF_PACKET vs libpcap performance                                     | [Link](https://discuss.elastic.co/t/performance-difference-between-af-packet-libpcap/69766) |
+| 🧵 | AF_PACKET      | Suricata Forum – AF_PACKET bridge IPS mode issues                                      | [Link](https://forum.suricata.io/t/af-packet-ips-mode-not-copy-tcp-ack/3782) |
+| 🧵 | AF_PACKET      | Suricata Forum – Configuration & performance issues                                    | [Link](https://forum.suricata.io/t/suricata-ids-does-not-work-in-af-packet-ips-mode/3996) |
+| 💡 | AF_PACKET      | NetDevConf – AF_PACKET v4 & PACKET_ZEROCOPY                                            | [Link](https://netdevconf.info/)                                    |
+| 📘 | BPF            | Wikipedia – Berkeley Packet Filter                                                     | [Link](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter)        |
+| 📘 | eBPF           | Wikipedia – eBPF                                                                       | [Link](https://en.wikipedia.org/wiki/EBPF)                          |
 
 🔗 [Suricata Packet Capture Docs](https://docs.suricata.io/en/latest/performance/packet-capture.html)
 
