@@ -1,4 +1,4 @@
-# 🧬 ForgeSec — Cybersecurity Engineering Platform
+# 🛡️ ForgeSec — Cybersecurity Engineering Platform
 
 **ForgeSec** is a modular cybersecurity engineering platform designed to engineer, validate, and evolve modern defensive systems from first principles.
 
@@ -18,6 +18,9 @@ Currently, the platform includes:
 - **Cyber Core** — a modular environment to experiment with real-world traffic, detection logic, flow analysis, normalization, evasion, infrastructure tradeoffs, and more. It’s not about tools — it’s about understanding how secure environments behave and evolve under pressure.
 - **IGNITE** — a programmable offensive testing engine for simulating attacks, crafting packets, stress-testing detection engines, and enabling rule tuning under real adversarial pressure.
 - **Learning Modules** — structured deep-dives into IDS/IPS internals, protocol behavior, evasion, detection pipelines, and theory-backed experiments. Built to scale long-term knowledge.
+
+📌 We strongly recommend reading the [`Cyber Core README`](./Cyber_Core/README.md)  
+It explains the philosophy behind the lab, how learning is structured, and why every test is engineered for clarity — not just results.
 
 Each module is independently versioned and under constant expansion. Future components will bring ForgeSec into domains like automation pipelines, rule intelligence, and AI-assisted detection.
 
