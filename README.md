@@ -1,109 +1,134 @@
-# 🛡️ Ather SOC Homelab
+# 🧬 ForgeSec — Cybersecurity Engineering Platform
 
-Ather SOC Homelab is a fully documented, realistic simulation environment designed to deeply understand how modern Security Operations Centers (SOCs) work. This lab includes virtualized firewalls, IDS/IPS, offensive testing, and log analysis everything built from scratch with real tools, real traffic, and real documentation.
+**ForgeSec** is a modular cybersecurity engineering platform designed to simulate, study, and evolve the architecture of modern defensive systems — from theory to practical validation.
 
-> This isn’t just a demo lab it's a **living, technical portfolio** focused on depth, clarity, and professional-grade research. Each component is analyzed and documented as if in a real-world enterprise SOC.
+This is not a repository of tools or tutorials. It's a long-term, high-fidelity technical portfolio that documents how real security engineering works — across simulation, detection, infrastructure, adversarial testing, and eventually automation and AI.
 
----
-
-## 🌟 Objectives
-
-- Build a modular, enterprise-like SOC homelab using virtual machines and segmented networks
-- Learn cybersecurity operations through hands-on simulation and attack emulation
-- Understand how logs, packets, and events interact across firewall, IDS/IPS, and SIEM layers
-- Create a custom offensive testing tool [`IGNITE`](./ignite)
-- Showcase detailed, technical documentation as part of a public portfolio
+> 🧠 ForgeSec is a living ecosystem of cybersecurity projects — each one independently designed, deeply documented, and purpose-built to reflect the complexity of modern defense.  
+> It's my way of learning by building, documenting by understanding, and sharing every step with engineering clarity.
 
 ---
 
-## 🧱 Lab Overview
+## 🌐 What Is ForgeSec?
 
-The lab emulates a corporate network using VMware Workstation Pro 17, with distinct NAT and LAN segments for realism. Components include:
+ForgeSec is structured as a growing collection of technical projects — each exploring a critical dimension of cybersecurity engineering. While most projects are connected, each has its own scope, roadmap, and documentation.
 
-- Windows Server with Active Directory
-- pfSense firewall
-- Suricata IDS/IPS
-- Kali Linux (offensive)
-- Metasploitable2 (vulnerable target)
-- Debian-based syslog/SIEM servers
+Currently, the platform contains:
 
-> 📄 For full architecture details: [`lab/topology.md`](./lab/topology.md)
+- **Cyber Core** — a hands-on, modular simulation environment built to reflect how real-world defensive architecture behaves under real conditions.  
+It’s where theory meets practice: every detection engine, protocol, signature, and adversarial input is tested in a controlled yet realistic setup. Cyber Core includes segmented networks, firewalls, IDS/IPS, virtual machines, and an expanding set of SIEM and logging integrations — but more than that, it’s a space to simulate what real engineers do: test, break, observe, and rebuild defensive strategy.
+More than a lab — it's a framework to understand how secure environments are designed, evaluated, and evolved.
+- **IGNITE** — a custom-built offensive engineering engine in active development.  
+Its mission is to simulate real-world attacks, automate adversarial behavior, and generate test traffic that challenges detection systems under pressure. From simple scans to evasive payloads, IGNITE will serve as a programmable attacker designed to probe, validate, and break assumptions in Cyber Core.
+The final goal is to make IGNITE a companion tool for advanced detection testing — with protocol-level control, replay capabilities, and integration with ForgeSec’s learning workflows.
+
+- **Learning Modules** — structured deep-dives into IDS/IPS internals, protocol behavior, evasion, flow tracking, and detection theory. Each topic is tied to lab-based validation.
+
+These modules are independently versioned and can evolve without breaking the larger vision. Future projects will expand ForgeSec into automation, orchestration, and AI-assisted detection logic.
 
 ---
 
-## 🧪 Tests and Detection Analysis
+## 🧱 Cyber Core
 
-All security tests follow a repeatable structure with:
+**Cyber Core** is the experimental core of ForgeSec — a modular environment purpose-built to explore, validate, and challenge defensive concepts through hands-on engineering.
 
-- Attack method and exact steps used
-- Traffic context and test scope
-- Alert/log output (e.g., Suricata or pfSense)
-- Screenshots and raw log files
+It’s not about replicating corporate SOCs or testing isolated tools. Cyber Core is where cybersecurity becomes real: where theory is applied, assumptions are broken, and detection is studied from the ground up — packet by packet, decision by decision.
 
-📂 Example:
+The environment evolves through structured learning, deep protocol analysis, adversarial simulation, and modular testing. Every experiment is crafted not to use a tool — but to understand the mechanisms behind visibility, detection, and response.
 
+In this space, I validate:
+
+- How detection pipelines behave under real traffic and edge cases  
+- How systems interpret, normalize, and match patterns across protocols  
+- How evasion works — and how it fails  
+- How architectural decisions impact visibility, context, and accuracy  
+
+Cyber Core is where I **build knowledge like an engineer** — with traffic, metrics, versioning, and documentation. It’s not a lab — it’s a framework to **think, experiment, and design defensively** with purpose.
+
+📂 See [`Cyber_Core/`](./Cyber_Core) for architecture, documentation, and test cases.
+
+---
+
+## ⚔️ IGNITE
+
+**IGNITE** is ForgeSec’s custom offensive module — an automation-focused tool designed to:
+
+- Simulate real-world attacks and scans  
+- Stress-test detection pipelines with crafted traffic  
+- Serve as a learning and testing companion to Cyber Core
+
+📂 See [`ignite/`](./ignite) for development roadmap and architecture.
+
+---
+
+## 📚 Learning Modules
+
+Every test and feature in ForgeSec is built on solid theoretical foundations.  
+Learning paths are documented like real engineering material: clean structure, no fluff, tested logic.
+
+Current focus includes:
+
+- IDS/IPS internals: from packet capture to alert generation  
+- Signature design, flow tracking, decoding layers  
+- Normalization, evasions, false positive reduction  
+- Protocol awareness and metadata enrichment
+
+📂 Learning modules are stored under: [`Cyber_Core/docs/`](./Cyber_Core/docs)
+
+---
+
+## 🧬 Philosophy
+
+ForgeSec exists to embody a clear vision:
+
+1. **Understand how detection really works**, not just how to configure tools  
+2. **Write like a real team would** — clear, structured, reusable documentation  
+3. **Learn by building** — each concept is tested in isolation and integrated in full-stack simulations  
+
+This is not a demo lab. It’s an engineering sandbox where cybersecurity is treated as a serious design discipline — and documented like one.
+
+> What I don’t understand, I build. What I build, I test. What I test, I document.
+
+---
+
+## 📁 Project Structure
+
+```text
+/
+├── Cyber_Core/     # Simulation environment: firewall, IDS/IPS, VMs, documentation, tests
+├── ignite/         # Offensive testing engine (custom adversarial tooling)
+└── README.md       # This file
 ```
-lab/IPS_IDS/suricata/tests/01_suricata_test_nmap-scan/
-├── description.md
-├── eve.json
-├── screenshot.png
-└── rules-activated.txt
-```
 
-All logs are cleared before testing to ensure traceability and reproducibility.
+## 🧭 Roadmap by Module
 
----
+### 🔷 Cyber Core
 
-## 🧹 Structure & Components
+- ✅ Detection engine learning path: completed up to 2.2  
+- ✅ Suricata simulation and validation  
+- 🔄 Flow tracking, decoding and enrichment  
+- 🔄 SIEM integration (Wazuh or Splunk)  
+- 🧪 Testing scenarios with real traffic and alert triage  
 
-The repository is divided into logical areas of a SOC environment:
+### 🔷 IGNITE
 
-- [`lab/vms`](./lab/vms) – Setup notes and roles of each virtual machine
-- [`lab/firewall`](./lab/firewall) – Firewall deployment and configuration
-- [`lab/IPS_IDS`](./lab/IPS_IDS) – IDS/IPS systems, detection rules, and testing
-- [`ignite`](./ignite) – Custom offensive tool designed for traffic simulation
-- [`docs`](./docs) – Learning paths, theory, research, and structured analysis
+- 🔄 Core traffic engine (ongoing)  
+- 🔄 Protocol-specific templates (Nmap, SSH brute, Web scans)  
+- 🔄 Integration with detection rule tuning (Cyber Core interface)  
 
-> Each section has its own `README.md` for navigation and context.
+### 🔷 Future Projects
 
----
-
-## 📚 Learning & Cybersecurity Insights
-
-This project focuses on **understanding cybersecurity as a discipline**, not just on using tools. Topics include:
-
-- Traffic analysis and detection logic in IDS/IPS
-- Firewall behavior, filtering, and state tracking
-- Rule tuning, signature logic, and alert triage
-- SIEM data correlation from multiple sources
-- Integration of AI for log parsing and detection support
-
-🧠 Key learning modules:
-
-- [`docs/learning/IPS_IDS/1.0%20-%20Roadmap_IDS-IPS%20Mastery%20Path.md`](./docs/learning/IPS_IDS/1.0%20-%20Roadmap_IDS-IPS%20Mastery%20Path.md)
-- [`docs/learning/IPS_IDS/2.0%20-%20IPS-IDS%20Fundamentals%20–%20Theoretical%20Concepts.md`](./docs/learning/IPS_IDS/2.0%20-%20IPS-IDS%20Fundamentals%20%E2%80%93%20Theoretical%20Concepts.md)
-- [`docs/learning/IPS_IDS/2.1%20-%20How%20IDS-IPS%20Engines%20Work.md`](./docs/learning/IPS_IDS/2.1%20-%20How%20IDS-IPS%20Engines%20Work.md)
+- 🔬 SOCLogGPT: AI assistant for alert triage and log parsing  
+- 🤖 Rule generation pipeline from labeled data  
+- ⚙️ Detection-as-code orchestration  
 
 ---
 
-## 🚧 Project Status & Future Additions
+## 📬 Contact & Links
 
-This lab is under active construction and constantly evolving. Planned enhancements include:
+- 🔗 Website: [forgesec.com.br](https://forgesec.com.br)  
+- 📬 Email: `forgesec.dev@gmail.com`  
+- 🧑‍💻 GitHub: [github.com/AtherCorrea](https://github.com/AtherCorrea)  
+- 💼 LinkedIn: [Ather Correa](https://www.linkedin.com/in/athercorrea)
 
-- SIEM integration with Wazuh or Splunk
-- Certificate management and secure communication
-- Advanced Suricata rule development and classification
-- Evasion detection and performance benchmarking
-- Extended attack simulation scenarios
-- AI modules for log analysis, rule generation, and alert triage
-
----
-
-## 🤝 Connect
-
-If you're a recruiter, SOC analyst, or cybersecurity enthusiast:
-
-- 🔗 [LinkedIn – Ather Correa](https://www.linkedin.com/in/athercorrea/)
-- 📬 GitHub: [github.com/AtherCorrea](https://github.com/AtherCorrea)
-
-> ⭐ Star this repo if you found it inspiring or useful — and feel free to share!
+> ⭐ Star this project if you're passionate about depth, structure, and the future of defensive engineering.
