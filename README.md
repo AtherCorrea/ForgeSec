@@ -1,6 +1,6 @@
 # 🧬 ForgeSec — Cybersecurity Engineering Platform
 
-**ForgeSec** is a modular cybersecurity engineering platform designed to simulate, study, and evolve the architecture of modern defensive systems — from theory to practical validation.
+**ForgeSec** is a modular cybersecurity engineering platform designed to engineer, validate, and evolve modern defensive systems from first principles.
 
 This is not a repository of tools or tutorials. It's a long-term, high-fidelity technical portfolio that documents how real security engineering works — across simulation, detection, infrastructure, adversarial testing, and eventually automation and AI.
 
@@ -13,37 +13,30 @@ This is not a repository of tools or tutorials. It's a long-term, high-fidelity 
 
 ForgeSec is structured as a growing collection of technical projects — each exploring a critical dimension of cybersecurity engineering. While most projects are connected, each has its own scope, roadmap, and documentation.
 
-Currently, the platform contains:
+Currently, the platform includes:
 
-- **Cyber Core** — a hands-on, modular simulation environment built to reflect how real-world defensive architecture behaves under real conditions.  
-It’s where theory meets practice: every detection engine, protocol, signature, and adversarial input is tested in a controlled yet realistic setup. Cyber Core includes segmented networks, firewalls, IDS/IPS, virtual machines, and an expanding set of SIEM and logging integrations — but more than that, it’s a space to simulate what real engineers do: test, break, observe, and rebuild defensive strategy.
-More than a lab — it's a framework to understand how secure environments are designed, evaluated, and evolved.
-- **IGNITE** — a custom-built offensive engineering engine in active development.  
-Its mission is to simulate real-world attacks, automate adversarial behavior, and generate test traffic that challenges detection systems under pressure. From simple scans to evasive payloads, IGNITE will serve as a programmable attacker designed to probe, validate, and break assumptions in Cyber Core.
-The final goal is to make IGNITE a companion tool for advanced detection testing — with protocol-level control, replay capabilities, and integration with ForgeSec’s learning workflows.
+- **Cyber Core** — a modular environment to experiment with real-world traffic, detection logic, flow analysis, normalization, evasion, infrastructure tradeoffs, and more. It’s not about tools — it’s about understanding how secure environments behave and evolve under pressure.
+- **IGNITE** — a programmable offensive testing engine for simulating attacks, crafting packets, stress-testing detection engines, and enabling rule tuning under real adversarial pressure.
+- **Learning Modules** — structured deep-dives into IDS/IPS internals, protocol behavior, evasion, detection pipelines, and theory-backed experiments. Built to scale long-term knowledge.
 
-- **Learning Modules** — structured deep-dives into IDS/IPS internals, protocol behavior, evasion, flow tracking, and detection theory. Each topic is tied to lab-based validation.
-
-These modules are independently versioned and can evolve without breaking the larger vision. Future projects will expand ForgeSec into automation, orchestration, and AI-assisted detection logic.
+Each module is independently versioned and under constant expansion. Future components will bring ForgeSec into domains like automation pipelines, rule intelligence, and AI-assisted detection.
 
 ---
 
 ## 🧱 Cyber Core
 
-**Cyber Core** is the experimental core of ForgeSec — a modular environment purpose-built to explore, validate, and challenge defensive concepts through hands-on engineering.
+**Cyber Core** is the hands-on foundation of ForgeSec — a modular, realistic, and continuously evolving simulation environment.
 
-It’s not about replicating corporate SOCs or testing isolated tools. Cyber Core is where cybersecurity becomes real: where theory is applied, assumptions are broken, and detection is studied from the ground up — packet by packet, decision by decision.
+This environment isn’t about replicating corporate SOCs — it’s about building a reproducible engineering space where defensive concepts are tested like code.
 
-The environment evolves through structured learning, deep protocol analysis, adversarial simulation, and modular testing. Every experiment is crafted not to use a tool — but to understand the mechanisms behind visibility, detection, and response.
-
-In this space, I validate:
+Here, I simulate real-world detection architecture to explore:
 
 - How detection pipelines behave under real traffic and edge cases  
 - How systems interpret, normalize, and match patterns across protocols  
 - How evasion works — and how it fails  
 - How architectural decisions impact visibility, context, and accuracy  
 
-Cyber Core is where I **build knowledge like an engineer** — with traffic, metrics, versioning, and documentation. It’s not a lab — it’s a framework to **think, experiment, and design defensively** with purpose.
+Every insight is validated through modular experiments, logs, and versioned documentation. It’s not a lab — it’s a design and reasoning engine for defenders.
 
 📂 See [`Cyber_Core/`](./Cyber_Core) for architecture, documentation, and test cases.
 
@@ -51,11 +44,17 @@ Cyber Core is where I **build knowledge like an engineer** — with traffic, met
 
 ## ⚔️ IGNITE
 
-**IGNITE** is ForgeSec’s custom offensive module — an automation-focused tool designed to:
+**IGNITE** is ForgeSec’s custom offensive module — a programmable adversarial engine.
 
-- Simulate real-world attacks and scans  
-- Stress-test detection pipelines with crafted traffic  
-- Serve as a learning and testing companion to Cyber Core
+Currently in active development, IGNITE simulates real-world attack patterns and stress-tests detection logic. From scans and brute force to evasive payload crafting and replay logic, it’s designed to challenge defensive assumptions.
+
+Its future scope includes:
+
+- Traffic shaping and noise injection  
+- Payload fuzzing and replay modules  
+- Integration with test suites in Cyber Core  
+- Rule-based attack targeting for automated triage testing  
+- AI-assisted adversarial generation (planned)
 
 📂 See [`ignite/`](./ignite) for development roadmap and architecture.
 
@@ -63,17 +62,17 @@ Cyber Core is where I **build knowledge like an engineer** — with traffic, met
 
 ## 📚 Learning Modules
 
-Every test and feature in ForgeSec is built on solid theoretical foundations.  
-Learning paths are documented like real engineering material: clean structure, no fluff, tested logic.
+Every ForgeSec component is theory-backed. Documentation is written like engineering material — clean, deep, reusable, and modular.
 
-Current focus includes:
+Learning paths currently include:
 
 - IDS/IPS internals: from packet capture to alert generation  
 - Signature design, flow tracking, decoding layers  
 - Normalization, evasions, false positive reduction  
-- Protocol awareness and metadata enrichment
+- Protocol metadata, detection tuning, rule design theory  
+- Future: SIEM logic, alert triage workflows, LLM-assisted parsing
 
-📂 Learning modules are stored under: [`Cyber_Core/docs/`](./Cyber_Core/docs)
+📂 Learning modules are located in [`Cyber_Core/docs/`](./Cyber_Core/docs)
 
 ---
 
@@ -100,27 +99,33 @@ This is not a demo lab. It’s an engineering sandbox where cybersecurity is tre
 └── README.md       # This file
 ```
 
+Each module is scoped, versioned, and ready for independent growth.
+
+---
+
 ## 🧭 Roadmap by Module
 
 ### 🔷 Cyber Core
 
-- ✅ Detection engine learning path: completed up to 2.2  
-- ✅ Suricata simulation and validation  
-- 🔄 Flow tracking, decoding and enrichment  
-- 🔄 SIEM integration (Wazuh or Splunk)  
-- 🧪 Testing scenarios with real traffic and alert triage  
+- ✅ Detection engine learning path: up to 2.2 complete  
+- ✅ Suricata detection scenarios  
+- 🔄 Flow tracking & decoding behavior  
+- 🔄 SIEM integration and event correlation  
+- 🧪 Performance, evasion, alert fidelity testing
 
 ### 🔷 IGNITE
 
-- 🔄 Core traffic engine (ongoing)  
-- 🔄 Protocol-specific templates (Nmap, SSH brute, Web scans)  
-- 🔄 Integration with detection rule tuning (Cyber Core interface)  
+- 🔄 Modular attack templates (Nmap, brute, payloads)  
+- 🔄 Protocol fuzzing engine  
+- 🔄 PCAP replay framework  
+- 🔄 Automation layer for structured adversarial simulation
 
 ### 🔷 Future Projects
 
 - 🔬 SOCLogGPT: AI assistant for alert triage and log parsing  
-- 🤖 Rule generation pipeline from labeled data  
-- ⚙️ Detection-as-code orchestration  
+- 🤖 Rule generation pipeline with labeled traffic datasets  
+- ⚙️ Detection-as-code orchestration prototypes  
+- 📡 Threat intelligence + enrichment integration (planned)
 
 ---
 
@@ -131,4 +136,4 @@ This is not a demo lab. It’s an engineering sandbox where cybersecurity is tre
 - 🧑‍💻 GitHub: [github.com/AtherCorrea](https://github.com/AtherCorrea)  
 - 💼 LinkedIn: [Ather Correa](https://www.linkedin.com/in/athercorrea)
 
-> ⭐ Star this project if you're passionate about depth, structure, and the future of defensive engineering.
+> ⭐ Star this repository if you're passionate about clarity, depth, and real-world defensive engineering.
