@@ -1,41 +1,50 @@
 # Network Topology – Ather SOC Homelab
 
-The lab uses a dual-network architecture in VMware:
+The lab environment is designed with a focus on controlled isolation, full observability, and realistic simulation of a corporate network.
 
-- A **NAT network** for internet access
-- A **LAN-only network** for internal lab communication
+---
 
-These networks are configured using VMware's Virtual Network Editor:
+## 🌐 Virtual Network Architecture
 
-- **NAT**: Provides outbound internet access
-- **LAN-01**: Isolated lab communication (no host access)
+The lab uses a dual-network setup in VMware Workstation:
+
+- **NAT**: Provides internet access (VMnet8)
+- **LAN-01**: Isolated internal network (VMnet2), used for simulating real internal host communication
+
+These networks are configured using VMware's Virtual Network Editor, allowing:
+
+- Outbound traffic through NAT
+- Full isolation between the LAN segment and the host machine
+- All inter-segment routing is handled by pfSense
 
 ---
 
 ## 📦 Current Virtual Machines
 
-| VM Name         | OS Version          | Network Adapters                        | Role/Description                         |
-|-----------------|---------------------|-----------------------------------------|------------------------------------------|
-| Kali Linux      | Kali Rolling        | LAN-01, NAT   | Attacker simulation: Nmap, Hydra, FIT++  |
-| Debian Server   | Debian 12           | LAN-01, NAT                            | Future SIEM server (Wazuh/ELK)           |
-| Windows Server  | Windows Server 2022 | LAN-01, NAT                            | Domain Controller (AD, DNS, DHCP)        |
+| VM Name         | OS Version          | IP Address       | Network Adapters     | Role/Description                           |
+|-----------------|---------------------|------------------|----------------------|--------------------------------------------|
+| **pfSense**     | pfSense CE / Plus   | 192.168.100.1    | LAN-01, WAN (NAT)    | Main gateway and IDS/IPS (Suricata running in IDS mode on both LAN and WAN interfaces) |
+| **Kali Linux**  | Kali Rolling        | 192.168.100.20   | NAT                  | Attacker simulation. Generates malicious traffic (Scapy, Nmap, Ignaitor). Reaches LAN via pfSense routing |
+| **Debian Server** | Debian 12         | 192.168.100.30   | LAN-01               | Future SIEM (Wazuh/ELK). Log and correlation server |
+| **Windows Server** | Server 2022      | 192.168.100.10   | LAN-01               | Domain Controller (Active Directory, DNS, DHCP) |
 
-> ⚠️ pfSense not installed yet. Will act as a firewall/IDS with dual interface (NAT/WAN + LAN)
+> Note: Although Kali is only connected to NAT, it can reach LAN-01 hosts through routing and NAT rules configured in pfSense. This enables controlled bidirectional communication for simulating both internal and external attacks.
 
 ---
 
-## 🧠 Network Design Plan
+## 🧠 Network Design
 
 - All internal traffic flows through the **LAN-01** network
-- **pfSense** will act as gateway/firewall between NAT and LAN
-- No communication from LAN to host machine ensures full isolation
+- **pfSense** acts as **router, firewall, and IDS/IPS**, routing traffic between NAT (WAN) and LAN interfaces
+- Suricata runs in **passive IDS mode** on both WAN and LAN interfaces
+- Some VMs (like Kali) have NAT enabled only for external access, but all attack traffic is routed through pfSense
 
-## 📍 Next Steps
-
-- Install pfSense with two interfaces
-- Assign static IPs (or enable DHCP via pfSense)
-- Begin configuring Windows AD, SIEM stack, and attack testing
+---
 
 ## 🖼️ Diagram
 
-(Coming soon – include visual topology here once created.)
+(Coming soon – include visual topology diagram here once created.)
+
+---
+
+This environment is purpose-built to simulate a real SOC, with full capability to generate, intercept, and analyze malicious traffic under controlled conditions.
