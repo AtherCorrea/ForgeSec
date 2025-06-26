@@ -1,4 +1,4 @@
-# Network Topology – Ather SOC Homelab
+# Network Topology – ForgeSec
 
 The lab environment is designed with a focus on controlled isolation, full observability, and realistic simulation of a corporate network.
 

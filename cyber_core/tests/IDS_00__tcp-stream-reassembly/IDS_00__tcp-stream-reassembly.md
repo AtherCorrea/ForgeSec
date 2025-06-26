@@ -2,7 +2,7 @@
 
 ## 1. Goal
 
-To validate the impact of TCP stream reassembly on detecting fragmented payloads — especially when traffic is deliberately split to evade content-based detection mechanisms.
+To validate the impact of TCP stream reassembly on detecting fragmented payloads especially when traffic is deliberately split to evade content-based detection mechanisms.
 
 ---
 
@@ -46,21 +46,74 @@ Traffic generated from Kali is routed through pfSense via NAT ↔ LAN forwarding
 ### Required Software
 
 - **On Kali:**
-  - Python 3.x with Scapy → `pip3 install scapy`
+  - Python 3.x with Scapy → `apt install python3-scapy`
+  chat gera o link para a img: install_scapy
   - `tcpreplay` → install with `sudo apt install tcpreplay`
+  img: install_tcpreplay
 - **On pfSense:**
-  - Suricata must be running on the **LAN interface**
-  - Only the custom rule `/evil.js` should be active (to eliminate noise)
+  - Suricata must be running on the **WAN interface**
+        - Tem que rodar na wan, pq o kali vem pela interface wan
 
+## 5. Rule Setup
+
+### Step 1 — Create detection rule
+
+- **On pfSense:**
+    -
+    Tive que acessar o site: https://docs.suricata.io/en/latest/rule-management/suricata-update.html
+    ler isso no site e entender como faz para configurar e instalar as propias rules no suricata.
+ 
+While it is possible to download and install rules manually, it is recommended to use a management tool for this. suricata-update is the official way to update and manage rules for Suricata.
+
+To download the Emerging Threats Open ruleset, it is enough to simply run:
+```bash
+sudo suricata-update
+```
+This will download the ruleset into /var/lib/suricata/rules/
+
+Suricata's configuration will have to be updated to have a rules config like this:
+```bash
+default-rule-path: /var/lib/suricata/rules
+rule-files:
+  - suricata.rules
+```
+
+
+```bash
+/var/lib/suricata/rules
+```
+
+```bash
+vim forgesec.rules
+```
+
+Add:
+
+```
+alert http any any -> any any (msg:"Detected /evil.js"; content:"/evil.js"; sid:1000001;)
+```
+igm: create_forgesec_rules
+img: forgesec_rules
+
+Adicionei o forgesec.rules ao suricata.yaml da interface em0
+img:forgesec_rules_em0
+suricata-update
+
+verifiquei se a regra estava ativa via interface grafica
+img:forgesec_rule_gui
+
+This rule detects any occurrence of `/evil.js` in HTTP traffic — **but it only works** if the content is visible after reassembly.
+
+  - Only the custom rule `/evil.js` should be active (to eliminate noise)
 ---
 
-## 5. Payload Creation
+## 6. Payload Creation
 
 ### Step 1 — Create the test folder
 
 ```bash
-mkdir -p ~/forgesec/cyber_core/tests/00_tcp-stream-reassembly/
-cd ~/forgesec/cyber_core/tests/00_tcp-stream-reassembly/
+mkdir -p ~/Desktop/ForgeSec/tests/IDS_00__tcp-stream-reassembly
+cd ~/Desktop/ForgeSec/tests/IDS_00__tcp-stream-reassembly
 ```
 
 ### Step 2 — Write the Scapy script
@@ -81,34 +134,21 @@ pkt2 = ip/TCP(sport=12345, dport=80, flags="PA", seq=1009)/"l.js HTTP/1.1\r\nHos
 
 wrpcap("input.pcap", [pkt1, pkt2])
 ```
+img: generate_payload
 
+rodei isso
+```python
+python3 generate_payload.py 
+```
 This script **does not send the packets**, it only **generates a .pcap file** containing two TCP packets with a split payload.
 
-This was something I initially misunderstood — I thought `generate_payload.py` would send traffic directly, but it doesn’t.
+img py_payload
 
-### Step 3 — Confirm the file
+input.pcap gerou esses dados
 
-```bash
-ls -lh input.pcap
-```
+�ò�����s\h�H00E0@��������d09P�P▒ �KGET /evi�s\h�HIIEI@��������d09P�P▒ �l.js HTTP/1.1
+Host: test.com
 
----
-
-## 6. Rule Setup
-
-### Step 1 — Create detection rule
-
-```bash
-nano rules.rules
-```
-
-Add:
-
-```
-alert http any any -> any any (msg:"Detected /evil.js"; content:"/evil.js"; sid:1000001;)
-```
-
-This rule detects any occurrence of `/evil.js` in HTTP traffic — **but it only works** if the content is visible after reassembly.
 
 ---
 
@@ -116,11 +156,14 @@ This rule detects any occurrence of `/evil.js` in HTTP traffic — **but it only
 
 ### 🔍 My doubt: "How does Suricata actually see this traffic?"
 
-Initially I assumed generating the PCAP was enough. But I realized that unless Suricata actually **observes the packets passing through the wire**, it can’t apply the detection logic in real time.
+Tive que pesquisar e achar uma maneira de como passar isso pela rede do kali para o suricata entao achei o tcpreplay (Melhore e de mais contexto e explique rapidamente oq é a ferramnta tbm)
 
 So the correct way is to **replay the packets onto the network**.
 
 ---
+
+
+Para mandar o pacote pela rede, precisamos dos seguintes passos 
 
 ### Step 1 — Check which interface Kali uses
 
@@ -133,17 +176,18 @@ ip route
 Look for something like:
 
 ```
-default via 192.168.100.1 dev eth1
+default via 192.168.100.1 dev eth0
 ```
+img: kali_interface
 
-This means `eth1` is your outbound interface.
+This means `eth0` is your outbound interface.
 
 ---
 
 ### Step 2 — Send the traffic using tcpreplay
 
 ```bash
-sudo tcpreplay -i eth1 input.pcap
+sudo tcpreplay -i eth0 input.pcap
 ```
 
 This **injects the crafted packets into the network**, making them observable to Suricata running on pfSense.
@@ -155,6 +199,73 @@ sudo tcpreplay -i eth1 --pps=1 input.pcap
 ```
 
 This was an important realization: Suricata doesn’t “magically see” the PCAP unless it’s either replayed (like above) or passed directly with `-r` (which is a different mode).
+
+---
+
+### 🧭 Real-world issue: Scapy-generated pcap initially rejected by tcpreplay
+
+When first attempting to replay the generated traffic using `tcpreplay`, I encountered this fatal error:
+
+```yaml
+Fatal Error in get.c:get_l2len_protocol() line 442:
+Unable to process unsupported DLT type: Raw IPv4 (0xe4)
+```
+
+This revealed that the `.pcap` created by Scapy was missing the Ethernet (Layer 2) header. Tools like `tcpreplay` and Suricata expect full Ethernet frames — not just IP/TCP.
+
+---
+
+### ✅ Fix: explicitly add Ethernet headers in Scapy
+
+To resolve this, I updated the Scapy script to explicitly include an `Ether()` layer:
+
+```python
+from scapy.all import Ether, IP, TCP, wrpcap
+
+ether = Ether(src="aa:bb:cc:dd:ee:ff", dst="ff:ee:dd:cc:bb:aa")
+ip = IP(dst="192.168.100.1")
+tcp1 = TCP(sport=12345, dport=80, flags="PA", seq=1000)
+tcp2 = TCP(sport=12345, dport=80, flags="PA", seq=1009)
+
+pkt1 = ether / ip / tcp1 / "GET /evi"
+pkt2 = ether / ip / tcp2 / "l.js HTTP/1.1\r\nHost: test.com\r\n\r\n"
+
+wrpcap("input.pcap", [pkt1, pkt2])
+```
+
+This generates a valid `.pcap` using Ethernet encapsulation (EN10MB), which is required for proper replay on real interfaces.
+
+---
+
+### 🧪 Replay confirmation
+
+After regenerating the `.pcap`, the replay was successful using:
+
+```shell
+tcpreplay -i eth0 input.pcap
+```
+
+**Output:**
+```yaml
+Actual: 2 packets (149 bytes) sent in 0.000116 seconds
+Rated: 1284482.7 Bps, 10.27 Mbps, 17241.37 pps
+Flows: 1 flows, 8620.68 fps, 2 unique flow packets, 0 unique non-flow packets
+Statistics for network device: eth0
+Successful packets: 2
+Failed packets: 0
+Truncated packets: 0
+Retried packets (ENOBUFS): 0
+Retried packets (EAGAIN): 0
+```
+
+---
+
+### 🎯 Takeaway
+
+This reinforced an important insight: engines like Suricata depend on **complete L2 framing** during replay — otherwise, the packets are silently dropped or rejected.
+
+It also reminded me that **low-level details in packet construction matter**, even when simulating traffic.
+
 
 ---
 
